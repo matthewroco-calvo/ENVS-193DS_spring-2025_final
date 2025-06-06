@@ -12,3 +12,19 @@ format: html
 ```
 
 
+## Question 1:Research writing
+
+### A: Transparent statistical methods
+
+In part 1 of their results section, they made use of a Pearson’s r test, while in part 2 they used a one way Analysis of Variance (ANOVA).
+
+### B: More information needed
+
+For part 2 of their results, the authors could run a Tukey’s Honestly Significant Difference test (Tukey’s HSD), as their ANOVA only reveals that there is a significant difference between average nitrogen loads (kg/year) in at at least two of the groups, which could be any pairing. A Tukey’s HSD test would reveal which groups’ average nitrogen are significantly different, providing more context in terms of what sources influence nitrogen runoff/pollution the most. Additionally, they could calculate the Eta squared, which is the effect size for an ANOVA. This would help to provide more context, as it would allow readers to understand how strong the effect of source is on average nitrogen loads.
+
+### C: Suggestions for rewriting
+
+We found that there is a correlation between distance from headwater (km) and annual total nitrogen load (kg/year), (Pearson’s r test, r = value of correlation, R^2 = coefficient of determination, p = 0.03)
+
+Additionally, we determined that there is a large difference ( n = Eta squared) between nitrogen pollution sources (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) in average nitrogen load in kg/year (one-way ANOVA, f(degrees of freedom within groups, degrees of freedom between groups) = f-statistic,  p = 0.02, alpha = significance level).
+
