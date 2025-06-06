@@ -140,13 +140,83 @@ The two seasons being 2016 and 2019, are two years where boxes were observed. In
 ### D: Table of Models
 
 | Model Number | Season | Distance to Forest Edge | Model Descriptions           |
-|--------------|--------|-------------------------|------------------------------|
+|-----------------|-----------------|------------------|----------------------|
 | 0            |        |                         | No predictors (Null Model)   |
 | 1            | x      | x                       | All predictors (Full Model)  |
 | 2            | x      |                         | Only season                  |
 | 3            |        | x                       | Only distance to forest edge |
 
 : Table of models
+
+### E: Run the Models
+
+```{r}
+
+# summarizing / wrangling the data
+
+
+nest_boxes_clean <- nest_boxes |>
+  mutate(season = as_factor(season)) |>  #making the seasons of 2016 and 2019 factors
+  clean_names() #cleaning column names
+
+
+# model0 = null model
+
+model0 <- lm(
+   sp ~ 1, # formula
+  data = nest_boxes_clean # data frame
+)
+
+# model1 = both predictors
+
+model1 <- lm(
+  sp ~ season + edge_distance,
+  data = nest_boxes_clean
+)
+
+# model2 = only season
+
+model2 <- lm(
+  sp ~ season,
+  data = nest_boxes_clean
+)
+
+# model 3 = only distance from forest edge
+
+model3 <- lm(
+  sp ~ edge_distance,
+  data = nest_boxes_clean
+)
+
+
+```
+
+### F: Check the Diagnostics
+
+```{r}
+
+#model 0
+
+par(mfrow = c(2,2)) #displays plots in a 2x2 grid
+plot(model0) #checking model 0 diagnostics
+
+#model 1
+
+par(mfrow = c(2,2)) #displays plots in a 2x2 grid
+plot(model1) #checking model 1 diagnostics
+
+#model 2
+
+par(mfrow = c(2,2)) #displays plots in a 2x2 grid
+plot(model2) #checking model 2 diagnostics
+
+#model 3
+
+par(mfrow = c(2,2)) #displays plots in a 2x2 grid
+plot(model3) #checking model 3 diagnostics
+
+
+```
 
 ## Question 4: Affective and exploratory visualizations
 
