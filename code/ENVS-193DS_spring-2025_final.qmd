@@ -23,6 +23,8 @@ library(readxl)
 
 sst <- read.csv(here("data", "SST_update2023.csv")) # creating a dataframe "sst" for question 2 using SBC LTER dataset on sea surface temperatures.
 
+nest_boxes <- read.csv(here("data", "occdist.csv")) #creating a dataframe "nest_boxes" for question 3 using the data provided from the study
+
 ```
 
 
@@ -121,6 +123,20 @@ ggplot(data = sst_clean, #starting with the sst_clean dataframe created in probl
 
 
 ```
+
+## 3: Data analysis
+
+### A: Response variable
+
+The 1’s and 0’s in this data set indicate that the researchers observed a species of bird within the nest box. For example, a 1 could show they found a common sterling in one of their boxes, while 0’s for the other columns shows that the other species (swift parrot, tree martin) were not there.
+
+### B: Purpose of study
+
+
+
+### C: Difference in “seasons"
+
+The two seasons being 2016 and 2019, are two years where boxes were observed. In 2016 the boxes were newly deployed, and 3 years later in 2019 in order to compare species usage between freshly deployed boxes and ones that have been established for some time. In both seasons, observations occurred in November/December, which was during key life cycles periods for all 3 species including nest building, nestling, and incubation
 
 
 
