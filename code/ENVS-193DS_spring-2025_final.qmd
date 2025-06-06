@@ -132,7 +132,7 @@ The 1’s and 0’s in this data set indicate that the researchers observed a sp
 
 ### B: Purpose of study
 
-
+Swift parrots in the study were the target species for the nest boxes. The population of this species of the bird in the region is at risk due to deforestation and competition from other species, namely the other two birds featured in the study which are Common Starlings and Tree Martins. The nest boxes were deployed in order to help the population of the swift parrot in the form of habitat restoration.
 
 ### C: Difference in “seasons"
 
