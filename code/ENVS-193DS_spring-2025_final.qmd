@@ -2,12 +2,26 @@
 title: "ENVS-193DS_spring-2025_final"
 author: Matthew Roco-Calvo
 date: 06/11/2025
-format: html
+format:
+  html:
+    toc: true # use this to display a table of contents
+execute:
+  message: false # use this to make sure messages don't show up
+  warning: false # use this to make sure warnings don't show up
 ---
 
 ## Packages and Data
 
 ```{r}
+
+library(tidyverse) 
+library(janitor)
+library(here)
+library(gt)
+library(flextable)
+library(readxl)
+
+sst <- read.csv(here("data", "SST_update2023.csv")) # creating a dataframe "sst" for question 2 using SBC LTER dataset on sea surface temperatures.
 
 ```
 
@@ -27,4 +41,30 @@ For part 2 of their results, the authors could run a Tukey’s Honestly Signific
 We found that there is a correlation between distance from headwater (km) and annual total nitrogen load (kg/year), (Pearson’s r test, r = value of correlation, R^2 = coefficient of determination, p = 0.03)
 
 Additionally, we determined that there is a large difference ( n = Eta squared) between nitrogen pollution sources (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) in average nitrogen load in kg/year (one-way ANOVA, f(degrees of freedom within groups, degrees of freedom between groups) = f-statistic,  p = 0.02, alpha = significance level).
+
+## Question 2: Data visualization
+
+### A: Cleaning and summarizing
+
+```{r}
+
+sst_clean <- sst |> #creating a new dataframe sst_clean from sst dataframe read above.
+  mutate(year = year(date)) |>  #creating a new column "year" with only the year from the existing date column
+  mutate(month = month(date)) |>  #creating a new column "month" with only the year from the existing date column
+  select(temp, year, month) |> #selecting to only include year, month, and temperature column
+  mutate(month = as_factor(month)) |>  #making the months a factor
+  mutate(year = as_factor(year)) |>   #making the year a factor 
+  group_by(month, year) |> 
+  summarize(
+    mean_monthly_sst = mean(temp, na.rm = TRUE) #creating a new column to summarize the mean monthly SST
+  ) |> 
+  ungroup() |>  #ungrouping data
+  filter(year %in% c(2018, #filtering to only include years 2018-2019
+                     2019,
+                     2020,
+                     2021,
+                     2022,
+                     2023 ))
+    
+```
 
