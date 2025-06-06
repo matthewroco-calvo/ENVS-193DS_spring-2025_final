@@ -27,7 +27,6 @@ nest_boxes <- read.csv(here("data", "occdist.csv")) #creating a dataframe "nest_
 
 ```
 
-
 ## Question 1:Research writing
 
 ### A: Transparent statistical methods
@@ -40,9 +39,9 @@ For part 2 of their results, the authors could run a Tukey’s Honestly Signific
 
 ### C: Suggestions for rewriting
 
-We found that there is a correlation between distance from headwater (km) and annual total nitrogen load (kg/year), (Pearson’s r test, r = value of correlation, R^2 = coefficient of determination, p = 0.03)
+We found that there is a correlation between distance from headwater (km) and annual total nitrogen load (kg/year), (Pearson’s r test, r = value of correlation, R\^2 = coefficient of determination, p = 0.03)
 
-Additionally, we determined that there is a large difference ( n = Eta squared) between nitrogen pollution sources (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) in average nitrogen load in kg/year (one-way ANOVA, f(degrees of freedom within groups, degrees of freedom between groups) = f-statistic,  p = 0.02, alpha = significance level).
+Additionally, we determined that there is a large difference ( n = Eta squared) between nitrogen pollution sources (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) in average nitrogen load in kg/year (one-way ANOVA, f(degrees of freedom within groups, degrees of freedom between groups) = f-statistic, p = 0.02, alpha = significance level).
 
 ## Question 2: Data visualization
 
@@ -138,9 +137,18 @@ Swift parrots in the study were the target species for the nest boxes. The popul
 
 The two seasons being 2016 and 2019, are two years where boxes were observed. In 2016 the boxes were newly deployed, and 3 years later in 2019 in order to compare species usage between freshly deployed boxes and ones that have been established for some time. In both seasons, observations occurred in November/December, which was during key life cycles periods for all 3 species including nest building, nestling, and incubation
 
+### D: Table of Models
 
+| Model Number | Season | Distance to Forest Edge | Model Descriptions           |
+|--------------|--------|-------------------------|------------------------------|
+| 0            |        |                         | No predictors (Null Model)   |
+| 1            | x      | x                       | All predictors (Full Model)  |
+| 2            | x      |                         | Only season                  |
+| 3            |        | x                       | Only distance to forest edge |
 
-## 4: Affective and exploratory visualizations
+: Table of models
+
+## Question 4: Affective and exploratory visualizations
 
 ## A: Comparing visualizations
 
