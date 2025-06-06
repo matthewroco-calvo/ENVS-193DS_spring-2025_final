@@ -20,6 +20,7 @@ library(here)
 library(gt)
 library(flextable)
 library(readxl)
+library(MuMIn)
 
 sst <- read.csv(here("data", "SST_update2023.csv")) # creating a dataframe "sst" for question 2 using SBC LTER dataset on sea surface temperatures.
 
@@ -217,6 +218,24 @@ plot(model3) #checking model 3 diagnostics
 
 
 ```
+
+### G: Select the best model
+
+```{r}
+
+AICc( #using the AICc function from MuMIn package to determine Akaike’s Information Criterion (AIC) for all models
+     model0, 
+     model1, #best model
+     model2,
+     model3
+     ) |> 
+  arrange(AICc) #arranging by value in order to determine best model, which is based on lowest score.
+
+```
+
+Based on Akaike’s Information Criterion (AIC), the best model uses both distance from the forest edge and season (year) as predictors for swift parrot nest occupancy. This is because it has the lowest AIC relative to the other models.
+
+### H: Visualize the Model Predictions 
 
 ## Question 4: Affective and exploratory visualizations
 

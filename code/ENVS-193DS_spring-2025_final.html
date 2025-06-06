@@ -93,7 +93,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#a-cleaning-and-summarizing" id="toc-a-cleaning-and-summarizing" class="nav-link" data-scroll-target="#a-cleaning-and-summarizing">A: Cleaning and summarizing</a></li>
   <li><a href="#b-visualize-the-data" id="toc-b-visualize-the-data" class="nav-link" data-scroll-target="#b-visualize-the-data">B: Visualize the data</a></li>
   </ul></li>
-  <li><a href="#affective-and-exploratory-visualizations" id="toc-affective-and-exploratory-visualizations" class="nav-link" data-scroll-target="#affective-and-exploratory-visualizations">4: Affective and exploratory visualizations</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">3: Data analysis</a>
+  <ul class="collapse">
+  <li><a href="#a-response-variable" id="toc-a-response-variable" class="nav-link" data-scroll-target="#a-response-variable">A: Response variable</a></li>
+  <li><a href="#b-purpose-of-study" id="toc-b-purpose-of-study" class="nav-link" data-scroll-target="#b-purpose-of-study">B: Purpose of study</a></li>
+  <li><a href="#c-difference-in-seasons" id="toc-c-difference-in-seasons" class="nav-link" data-scroll-target="#c-difference-in-seasons">C: Difference in “seasons”</a></li>
+  <li><a href="#d-table-of-models" id="toc-d-table-of-models" class="nav-link" data-scroll-target="#d-table-of-models">D: Table of Models</a></li>
+  <li><a href="#e-run-the-models" id="toc-e-run-the-models" class="nav-link" data-scroll-target="#e-run-the-models">E: Run the Models</a></li>
+  <li><a href="#f-check-the-diagnostics" id="toc-f-check-the-diagnostics" class="nav-link" data-scroll-target="#f-check-the-diagnostics">F: Check the Diagnostics</a></li>
+  <li><a href="#g-select-the-best-model" id="toc-g-select-the-best-model" class="nav-link" data-scroll-target="#g-select-the-best-model">G: Select the best model</a></li>
+  <li><a href="#h-visualize-the-model-predictions" id="toc-h-visualize-the-model-predictions" class="nav-link" data-scroll-target="#h-visualize-the-model-predictions">H: Visualize the Model Predictions</a></li>
+  </ul></li>
+  <li><a href="#question-4-affective-and-exploratory-visualizations" id="toc-question-4-affective-and-exploratory-visualizations" class="nav-link" data-scroll-target="#question-4-affective-and-exploratory-visualizations">Question 4: Affective and exploratory visualizations</a></li>
   <li><a href="#a-comparing-visualizations" id="toc-a-comparing-visualizations" class="nav-link" data-scroll-target="#a-comparing-visualizations">A: Comparing visualizations</a></li>
   </ul>
 </nav>
@@ -140,8 +151,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sst <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SST_update2023.csv"</span>)) <span class="co"># creating a dataframe "sst" for question 2 using SBC LTER dataset on sea surface temperatures.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>sst <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SST_update2023.csv"</span>)) <span class="co"># creating a dataframe "sst" for question 2 using SBC LTER dataset on sea surface temperatures.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>nest_boxes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"occdist.csv"</span>)) <span class="co">#creating a dataframe "nest_boxes" for question 3 using the data provided from the study</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="question-1research-writing" class="level2">
@@ -242,8 +256,181 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="affective-and-exploratory-visualizations" class="level2">
-<h2 class="anchored" data-anchor-id="affective-and-exploratory-visualizations">4: Affective and exploratory visualizations</h2>
+<section id="data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="data-analysis">3: Data analysis</h2>
+<section id="a-response-variable" class="level3">
+<h3 class="anchored" data-anchor-id="a-response-variable">A: Response variable</h3>
+<p>The 1’s and 0’s in this data set indicate that the researchers observed a species of bird within the nest box. For example, a 1 could show they found a common sterling in one of their boxes, while 0’s for the other columns shows that the other species (swift parrot, tree martin) were not there.</p>
+</section>
+<section id="b-purpose-of-study" class="level3">
+<h3 class="anchored" data-anchor-id="b-purpose-of-study">B: Purpose of study</h3>
+<p>Swift parrots in the study were the target species for the nest boxes. The population of this species of the bird in the region is at risk due to deforestation and competition from other species, namely the other two birds featured in the study which are Common Starlings and Tree Martins. The nest boxes were deployed in order to help the population of the swift parrot in the form of habitat restoration.</p>
+</section>
+<section id="c-difference-in-seasons" class="level3">
+<h3 class="anchored" data-anchor-id="c-difference-in-seasons">C: Difference in “seasons”</h3>
+<p>The two seasons being 2016 and 2019, are two years where boxes were observed. In 2016 the boxes were newly deployed, and 3 years later in 2019 in order to compare species usage between freshly deployed boxes and ones that have been established for some time. In both seasons, observations occurred in November/December, which was during key life cycles periods for all 3 species including nest building, nestling, and incubation</p>
+</section>
+<section id="d-table-of-models" class="level3">
+<h3 class="anchored" data-anchor-id="d-table-of-models">D: Table of Models</h3>
+<table class="caption-top table">
+<caption>Table of models</caption>
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 24%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model Number</th>
+<th>Season</th>
+<th>Distance to Forest Edge</th>
+<th>Model Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td></td>
+<td></td>
+<td>No predictors (Null Model)</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>x</td>
+<td>x</td>
+<td>All predictors (Full Model)</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>x</td>
+<td></td>
+<td>Only season</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td></td>
+<td>x</td>
+<td>Only distance to forest edge</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="e-run-the-models" class="level3">
+<h3 class="anchored" data-anchor-id="e-run-the-models">E: Run the Models</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summarizing / wrangling the data</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>nest_boxes_clean <span class="ot">&lt;-</span> nest_boxes <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">season =</span> <span class="fu">as_factor</span>(season)) <span class="sc">|&gt;</span>  <span class="co">#making the seasons of 2016 and 2019 factors</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="co">#cleaning column names</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># model0 = null model</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>model0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>   sp <span class="sc">~</span> <span class="dv">1</span>, <span class="co"># formula</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> nest_boxes_clean <span class="co"># data frame</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># model1 = both predictors</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  sp <span class="sc">~</span> season <span class="sc">+</span> edge_distance,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> nest_boxes_clean</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># model2 = only season</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  sp <span class="sc">~</span> season,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> nest_boxes_clean</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># model 3 = only distance from forest edge</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  sp <span class="sc">~</span> edge_distance,</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> nest_boxes_clean</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="f-check-the-diagnostics" class="level3">
+<h3 class="anchored" data-anchor-id="f-check-the-diagnostics">F: Check the Diagnostics</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model 0</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#displays plots in a 2x2 grid</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model0) <span class="co">#checking model 0 diagnostics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ENVS-193DS_spring-2025_final_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model 1</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#displays plots in a 2x2 grid</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model1) <span class="co">#checking model 1 diagnostics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ENVS-193DS_spring-2025_final_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model 2</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#displays plots in a 2x2 grid</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model2) <span class="co">#checking model 2 diagnostics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ENVS-193DS_spring-2025_final_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model 3</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#displays plots in a 2x2 grid</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model3) <span class="co">#checking model 3 diagnostics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ENVS-193DS_spring-2025_final_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="g-select-the-best-model" class="level3">
+<h3 class="anchored" data-anchor-id="g-select-the-best-model">G: Select the best model</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>( <span class="co">#using the AICc function from MuMIn package to determine Akaike’s Information Criterion (AIC) for all models</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     model0, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     model1, <span class="co">#best model</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>     model2,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>     model3</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>     ) <span class="sc">|&gt;</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(AICc) <span class="co">#arranging by value in order to determine best model, which is based on lowest score.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       df     AICc
+model1  4 232.5485
+model3  3 235.9030
+model2  3 242.5425
+model0  2 245.0324</code></pre>
+</div>
+</div>
+<p>Based on Akaike’s Information Criterion (AIC), the best model uses both distance from the forest edge and season (year) as predictors for swift parrot nest occupancy. This is because it has the lowest AIC relative to the other models.</p>
+</section>
+<section id="h-visualize-the-model-predictions" class="level3">
+<h3 class="anchored" data-anchor-id="h-visualize-the-model-predictions">H: Visualize the Model Predictions</h3>
+</section>
+</section>
+<section id="question-4-affective-and-exploratory-visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="question-4-affective-and-exploratory-visualizations">Question 4: Affective and exploratory visualizations</h2>
 </section>
 <section id="a-comparing-visualizations" class="level2">
 <h2 class="anchored" data-anchor-id="a-comparing-visualizations">A: Comparing visualizations</h2>
