@@ -68,3 +68,61 @@ sst_clean <- sst |> #creating a new dataframe sst_clean from sst dataframe read 
     
 ```
 
+### B: Visualize the data
+
+```{r}
+
+ggplot(data = sst_clean, #starting with the sst_clean dataframe created in problem 2a
+       aes(x = month, #x axis in month
+           y = mean_monthly_sst, #y axis in mean monthly sea surface temperature
+           color = year, #coloring and grouping by year
+           group = year)) +
+  geom_line() + #adding the first layer which is a line chart
+  geom_point() +#adding the second layer which is a scatter plot
+  scale_x_discrete( #relabelling the Months from numbers to text
+    label = c( 
+      "1" = "Jan",
+      "2" = "Feb",
+      "3" = "Mar",
+      "4" = "Apr",
+      "5" = "May",
+      "6" = "Jun",
+      "7" = "Jul",
+      "8" = "Aug",
+      "9" = "Sep",
+      "10" = "Oct",
+      "11" = "Nov",
+      "12" = "Dec"
+    )
+  ) +
+  
+  
+  labs( x = "Month", #labeling the x axis "Month"
+        y = "Mean Monthly Sea Surface Temperature (C)", #labeling the y axis as mean monthly sea surface temp
+        color = "Year" #labeling the axis as year
+        ) +
+  scale_color_manual(values = #adding a gradient of color manually. scale_color_gradient did not work with discrete data
+                       c(
+                         "2018" = "lightblue",
+                         "2019" = "steelblue1",
+                         "2019" = "steelblue2",
+                         "2020" = "steelblue3",
+                         "2021" = "steelblue",
+                         "2022" = "steelblue4",
+                        "2023" = "darkblue"
+                       )) +
+  theme(
+    panel.grid = element_blank(), #removing gridlines 
+    panel.background = element_blank(),#making background white
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1), #adding a pannel border
+    legend.position = c(0.10, 0.75) #moving legend to inside top left.
+  )
+
+
+
+```
+
+
+
+
+
