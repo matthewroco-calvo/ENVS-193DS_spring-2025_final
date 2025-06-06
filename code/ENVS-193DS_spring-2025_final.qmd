@@ -124,5 +124,10 @@ ggplot(data = sst_clean, #starting with the sst_clean dataframe created in probl
 
 
 
+## 4: Affective and exploratory visualizations
 
+## A: Comparing visualizations
 
+In homework 3, I used jitterplots with added means to compare bike travel times between those going towards Campbell hall and those going towards home. In my affective visualization however, I chose to use lines representative of the distribution of histograms of the two groups to represent the data. In terms of similarities, both of them show the distribution of data points, such as what time ranges were more common, and where peaks occurred, modality, and others, although the distribution was more obvious in my affective visualization project. In terms of patterns between both visualizations, both displayed that the mean duration of the bike towards Campbell was shorter than the mean duration of the bike towards home. Additionally both visualizations showed bimodality in both directions, or having two peaks or clusters of data points. For example, the lines in the affective visualization had two peaks, while in the scatterplot data you could see two areas where times were grouped.
+
+During week 9, I received feedback to flip the end point buildings horizontally (my apartment complex and Campbell hall) in order for them to be mirror images of each other. I incorporated this advice into my piece, which I think increased visual cohesion. Additionally, I was suggested to add elements of biking to the piece, which I did in the form of having two bikes traveling along the tops of the lines. Lastly, I received a suggestion to use the actual histogram (rather than a line showing the distribution) and place buildings in each of the bars. I attempted to do this, however many of the buildings and objects that I was attempting to highlight were shorter and wider, rather than the narrow and tall buildings which would be required to fill taller bars (with the exception of Stroke tower), and so I did not ultimately use this suggestion.
