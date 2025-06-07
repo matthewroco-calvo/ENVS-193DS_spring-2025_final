@@ -21,6 +21,8 @@ library(gt)
 library(flextable)
 library(readxl)
 library(MuMIn)
+library(ggeffects)
+library(DHARMa)
 
 sst <- read.csv(here("data", "SST_update2023.csv")) # creating a dataframe "sst" for question 2 using SBC LTER dataset on sea surface temperatures.
 
@@ -158,35 +160,39 @@ The two seasons being 2016 and 2019, are two years where boxes were observed. In
 
 nest_boxes_clean <- nest_boxes |>
   mutate(season = as_factor(season)) |>  #making the seasons of 2016 and 2019 factors
-  clean_names() #cleaning column names
-
+  clean_names() |> #cleaning column names
+  select(edge_distance, season, sp)
 
 # model0 = null model
 
-model0 <- lm(
+model0 <- glm(
    sp ~ 1, # formula
-  data = nest_boxes_clean # data frame
-)
+  data = nest_boxes_clean, # data frame
+  family = "binomial"
+  )
 
 # model1 = both predictors
 
-model1 <- lm(
+model1 <- glm(
   sp ~ season + edge_distance,
-  data = nest_boxes_clean
+  data = nest_boxes_clean, # data frame
+  family = "binomial"
 )
 
 # model2 = only season
 
-model2 <- lm(
+model2 <- glm(
   sp ~ season,
-  data = nest_boxes_clean
+  data = nest_boxes_clean, # data frame
+  family = "binomial"
 )
 
 # model 3 = only distance from forest edge
 
-model3 <- lm(
+model3 <- glm(
   sp ~ edge_distance,
-  data = nest_boxes_clean
+  data = nest_boxes_clean, # data frame
+  family = "binomial"
 )
 
 
@@ -196,6 +202,30 @@ model3 <- lm(
 
 ```{r}
 
+# checking diagnostics using simulated residuals from the DHARMa package
+
+plot(
+  simulateResiduals(model0) #checking diagnostics for model 0
+)
+
+plot(
+  simulateResiduals(model1) #checking diagnostics for model 1
+)
+
+plot(
+  simulateResiduals(model2) #checking diagnostics for model 2
+)
+
+plot(
+  simulateResiduals(model3) #checking diagnostics for model 3
+)
+
+
+
+
+```
+
+```{r}
 #model 0
 
 par(mfrow = c(2,2)) #displays plots in a 2x2 grid
@@ -236,6 +266,55 @@ AICc( #using the AICc function from MuMIn package to determine Akaike’s Inform
 Based on Akaike’s Information Criterion (AIC), the best model uses both distance from the forest edge and season (year) as predictors for swift parrot nest occupancy. This is because it has the lowest AIC relative to the other models.
 
 ### H: Visualize the Model Predictions 
+
+```{r}
+
+
+model1_prediction <- ggpredict( # starting by creating a "dataframe" with model prediction values
+  model1, 
+  terms = c("edge_distance", "season")) #using the two predictor variables
+  
+# ask question: there are three for each year, do I need to remove the column with species name?
+
+# creating a plot
+
+ggplot(data = nest_boxes_clean,
+       aes(
+         x = edge_distance,
+         y = sp
+       )) +
+  geom_point(alpha = 0.4) +
+  geom_ribbon(data = model1_prediction,
+              aes(
+                x = x,
+                y = predicted,
+                ymin = conf.low,
+                ymax = conf.high,
+                fill = group),
+              alpha = 0.4
+              ) +
+  geom_line(data = model1_prediction,
+            aes(
+             x = x,
+             y = predicted,
+             color = group
+            )) +
+  labs(
+    x = "Distance from Forest Edge (m)",
+    y = "Probability of Nest Occupancy",
+    fill = "Season",
+    color = "Season"
+  ) +
+  theme_classic() +
+  scale_color_manual( values = 
+                        c("2016" = "skyblue",
+                          "2019" = "forestgreen")) +
+  scale_fill_manual(values =
+                      c("2016" = "skyblue",
+                        "2019" = "forestgreen"))
+
+
+```
 
 ## Question 4: Affective and exploratory visualizations
 
