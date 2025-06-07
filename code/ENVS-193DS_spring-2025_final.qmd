@@ -278,41 +278,60 @@ model1_prediction <- ggpredict( # starting by creating a "dataframe" with model 
 
 # creating a plot
 
-ggplot(data = nest_boxes_clean,
+ggplot(data = nest_boxes_clean, # starting with the nest_boxes_clean data frame
        aes(
          x = edge_distance,
          y = sp
        )) +
-  geom_point(alpha = 0.4) +
-  geom_ribbon(data = model1_prediction,
+  geom_point(alpha = 0.4) + #adding points and making them transparent with alpha
+  geom_ribbon(data = model1_prediction, #adding a ribbon using the 95% confidence intervals from the model prediction
               aes(
-                x = x,
-                y = predicted,
-                ymin = conf.low,
-                ymax = conf.high,
-                fill = group),
-              alpha = 0.4
+                x = x, #using x (distance) as x axis
+                y = predicted, #using predicted as y axis
+                ymin = conf.low, #upper confidence interval
+                ymax = conf.high, #lower confidence interval
+                fill = group),  #coloring / sorting by season
+              alpha = 0.4 #making ribbons transparent
               ) +
-  geom_line(data = model1_prediction,
+  geom_line(data = model1_prediction, #adding a line chart using prediction
             aes(
-             x = x,
-             y = predicted,
-             color = group
+             x = x, #using x (distance) as x axis
+             y = predicted, #using predicted as y
+             color = group #coloring lines by season
             )) +
   labs(
-    x = "Distance from Forest Edge (m)",
+    x = "Distance from Forest Edge (m)", #updating names of axes and legend
     y = "Probability of Nest Occupancy",
     fill = "Season",
     color = "Season"
   ) +
-  theme_classic() +
+  theme_classic() + #theme to remove gridlines
   scale_color_manual( values = 
-                        c("2016" = "skyblue",
+                        c("2016" = "skyblue", #changing colors of the lines
                           "2019" = "forestgreen")) +
   scale_fill_manual(values =
-                      c("2016" = "skyblue",
+                      c("2016" = "skyblue", #changing colors of the ribbon
                         "2019" = "forestgreen"))
 
+
+```
+
+### I: Figure Caption
+
+Figure 1: As the distance from the forest edge increases, the probability of a nest box being occupied goes down. 
+Data from Stojanovic, D., Owens, G., Young, C. M., Alves, F., & Heinsohn, R. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird. Restoration Ecology, 29(3), e13319. https://doi.org/10.1111/rec.13319
+
+### J: Calculate Model Predictions
+
+```{r}
+
+#using ggpredict to make predictions for nest occupancy probability at specified distances from the forest edge
+
+ggpredict(model1,
+          terms = c("edge_distance [0]", "season")) # predicted occupany probability at 0m
+
+ggpredict(model1,
+          terms = c("edge_distance [900]", "season")) # predicted occupancy probabiltiy at 900m
 
 ```
 
