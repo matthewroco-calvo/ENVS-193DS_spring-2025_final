@@ -143,7 +143,7 @@ The two seasons being 2016 and 2019, are two years where boxes were observed. In
 ### D: Table of Models
 
 | Model Number | Season | Distance to Forest Edge | Model Descriptions           |
-|-----------------|-----------------|------------------|----------------------|
+|-----------------|-----------------|-----------------|---------------------|
 | 0            |        |                         | No predictors (Null Model)   |
 | 1            | x      | x                       | All predictors (Full Model)  |
 | 2            | x      |                         | Only season                  |
@@ -220,33 +220,6 @@ plot(
   simulateResiduals(model3) #checking diagnostics for model 3
 )
 
-
-
-
-```
-
-```{r}
-#model 0
-
-par(mfrow = c(2,2)) #displays plots in a 2x2 grid
-plot(model0) #checking model 0 diagnostics
-
-#model 1
-
-par(mfrow = c(2,2)) #displays plots in a 2x2 grid
-plot(model1) #checking model 1 diagnostics
-
-#model 2
-
-par(mfrow = c(2,2)) #displays plots in a 2x2 grid
-plot(model2) #checking model 2 diagnostics
-
-#model 3
-
-par(mfrow = c(2,2)) #displays plots in a 2x2 grid
-plot(model3) #checking model 3 diagnostics
-
-
 ```
 
 ### G: Select the best model
@@ -265,7 +238,7 @@ AICc( #using the AICc function from MuMIn package to determine Akaike’s Inform
 
 Based on Akaike’s Information Criterion (AIC), the best model uses both distance from the forest edge and season (year) as predictors for swift parrot nest occupancy. This is because it has the lowest AIC relative to the other models.
 
-### H: Visualize the Model Predictions 
+### H: Visualize the Model Predictions
 
 ```{r}
 
@@ -283,7 +256,11 @@ ggplot(data = nest_boxes_clean, # starting with the nest_boxes_clean data frame
          x = edge_distance,
          y = sp
        )) +
-  geom_point(alpha = 0.4) + #adding points and making them transparent with alpha
+  geom_point(data = nest_boxes_clean, #starting with a scatterplot of raw data
+             aes(
+               color = season #coloring by season
+             ),
+             alpha = 0.4) + #adding points and making them transparent with alpha
   geom_ribbon(data = model1_prediction, #adding a ribbon using the 95% confidence intervals from the model prediction
               aes(
                 x = x, #using x (distance) as x axis
@@ -315,11 +292,13 @@ ggplot(data = nest_boxes_clean, # starting with the nest_boxes_clean data frame
 
 
 ```
-
-### I: Figure Caption
-
 Figure 1: As the distance from the forest edge increases, the probability of a nest box being occupied goes down. 
-Data from Stojanovic, D., Owens, G., Young, C. M., Alves, F., & Heinsohn, R. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird. Restoration Ecology, 29(3), e13319. https://doi.org/10.1111/rec.13319
+Data from Stojanovic, D., Owens, G., Young, C. M., Alves, F., & Heinsohn, R. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird. Restoration Figure 1: As the distance from the forest edge increases, the probability of a nest box being occupied goes down.
+
+Data from Stojanovic, D., Owens, G., Young, C. M., Alves, F., & Heinsohn, R. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird. Restoration Ecology, 29(3), e13319. https://doi.org/10.1111/rec.13319 
+
+Circles represent observations of distance of nest box from forest edge (m) and occupancy by swift parrots (0: not found, 1: found). Lines represent predicted nest box occupancy probability by swift parrots over distances from forest edge (m), shaded ribbons represent 95% confidence intervals. Different colors represent seasons (Blue: 2016, Green: 2019).
+
 
 ### J: Calculate Model Predictions
 
@@ -334,6 +313,11 @@ ggpredict(model1,
           terms = c("edge_distance [900]", "season")) # predicted occupancy probabiltiy at 900m
 
 ```
+
+### K: Interpret your results
+
+Across both seasons (2016 and 2019), nest boxes tend to have a lower probability of being occupied by swift parrots when the edge of the forest is further away (Fig. 1). 
+At the forest edge (0m in distance), the probability of a nest box being occupied by a swift parrot is 0.48 (95% CI [0.33, 0.64]) and 0.31 (95% CI [0.18, 0.44]) in 2016 and 2019 respectively. When the forest edge is 900m away, the probability of a nest box being occupied by a swift parrot is 0.12 (95% CI [0.06, 0.24]) and 0.06 (95% CI [0.03, 0.13]) in 2016 and 2019. This may be due to the fact that other species such as the tree martin tend to use nest boxes further into the forest interior (Stojanovic et al., 2021), which increases competition for boxes farther away from the forest edge, thus decreasing the occupancy probability for swift parrots who are not as effective in competing against other species for habitat.
 
 ## Question 4: Affective and exploratory visualizations
 
