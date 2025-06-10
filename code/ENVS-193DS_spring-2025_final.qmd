@@ -42,9 +42,9 @@ For part 2 of their results, the authors could run a Tukey’s Honestly Signific
 
 ### C: Suggestions for rewriting
 
-We found that there is a correlation between distance from headwater (km) and annual total nitrogen load (kg/year), (Pearson’s r test, r = value of correlation, R\^2 = coefficient of determination, p = 0.03)
+We found that there is a correlation between distance from headwater (km) and annual total nitrogen load (kg/year), (Pearson’s r test, $r^2$ = value of correlation, R = coefficient of determination, p = 0.03)
 
-Additionally, we determined that there is a large difference ( n = Eta squared) between nitrogen pollution sources (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) in average nitrogen load in kg/year (one-way ANOVA, f(degrees of freedom within groups, degrees of freedom between groups) = f-statistic, p = 0.02, alpha = significance level).
+Additionally, we determined that there is a large difference ( n = Eta squared) between nitrogen pollution sources (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) in average nitrogen load in kg/year (one-way ANOVA, f(degrees of freedom within groups, degrees of freedom between groups) = f-statistic, p = 0.02, $\alpha$ = significance level).
 
 ## Question 2: Data visualization
 
@@ -143,7 +143,7 @@ The two seasons being 2016 and 2019, are two years where boxes were observed. In
 ### D: Table of Models
 
 | Model Number | Season | Distance to Forest Edge | Model Descriptions           |
-|-----------------|-----------------|-----------------|---------------------|
+|------------------|------------------|------------------|-------------------|
 | 0            |        |                         | No predictors (Null Model)   |
 | 1            | x      | x                       | All predictors (Full Model)  |
 | 2            | x      |                         | Only season                  |
@@ -168,7 +168,7 @@ nest_boxes_clean <- nest_boxes |>
 model0 <- glm(
    sp ~ 1, # formula
   data = nest_boxes_clean, # data frame
-  family = "binomial"
+  family = "binomial" #using a binomial distrubtion
   )
 
 # model1 = both predictors
@@ -176,7 +176,7 @@ model0 <- glm(
 model1 <- glm(
   sp ~ season + edge_distance,
   data = nest_boxes_clean, # data frame
-  family = "binomial"
+  family = "binomial" #using a binomial distrubtion
 )
 
 # model2 = only season
@@ -184,7 +184,7 @@ model1 <- glm(
 model2 <- glm(
   sp ~ season,
   data = nest_boxes_clean, # data frame
-  family = "binomial"
+  family = "binomial" #using a binomial distrubtion
 )
 
 # model 3 = only distance from forest edge
@@ -192,7 +192,7 @@ model2 <- glm(
 model3 <- glm(
   sp ~ edge_distance,
   data = nest_boxes_clean, # data frame
-  family = "binomial"
+  family = "binomial" #using a binomial distrubtion
 )
 
 
@@ -292,13 +292,12 @@ ggplot(data = nest_boxes_clean, # starting with the nest_boxes_clean data frame
 
 
 ```
-Figure 1: As the distance from the forest edge increases, the probability of a nest box being occupied goes down. 
-Data from Stojanovic, D., Owens, G., Young, C. M., Alves, F., & Heinsohn, R. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird. Restoration Figure 1: As the distance from the forest edge increases, the probability of a nest box being occupied goes down.
 
-Data from Stojanovic, D., Owens, G., Young, C. M., Alves, F., & Heinsohn, R. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird. Restoration Ecology, 29(3), e13319. https://doi.org/10.1111/rec.13319 
+Figure 1: As the distance from the forest edge increases, the probability of a nest box being occupied goes down. Data from Stojanovic, D., Owens, G., Young, C. M., Alves, F., & Heinsohn, R. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird. Restoration Figure 1: As the distance from the forest edge increases, the probability of a nest box being occupied goes down.
+
+Data from Stojanovic, D., Owens, G., Young, C. M., Alves, F., & Heinsohn, R. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird. Restoration Ecology, 29(3), e13319. https://doi.org/10.1111/rec.13319
 
 Circles represent observations of distance of nest box from forest edge (m) and occupancy by swift parrots (0: not found, 1: found). Lines represent predicted nest box occupancy probability by swift parrots over distances from forest edge (m), shaded ribbons represent 95% confidence intervals. Different colors represent seasons (Blue: 2016, Green: 2019).
-
 
 ### J: Calculate Model Predictions
 
@@ -316,8 +315,7 @@ ggpredict(model1,
 
 ### K: Interpret your results
 
-Across both seasons (2016 and 2019), nest boxes tend to have a lower probability of being occupied by swift parrots when the edge of the forest is further away (Fig. 1). 
-At the forest edge (0m in distance), the probability of a nest box being occupied by a swift parrot is 0.48 (95% CI [0.33, 0.64]) and 0.31 (95% CI [0.18, 0.44]) in 2016 and 2019 respectively. When the forest edge is 900m away, the probability of a nest box being occupied by a swift parrot is 0.12 (95% CI [0.06, 0.24]) and 0.06 (95% CI [0.03, 0.13]) in 2016 and 2019. This may be due to the fact that other species such as the tree martin tend to use nest boxes further into the forest interior (Stojanovic et al., 2021), which increases competition for boxes farther away from the forest edge, thus decreasing the occupancy probability for swift parrots who are not as effective in competing against other species for habitat.
+Across both seasons (2016 and 2019), nest boxes tend to have a lower probability of being occupied by swift parrots when the edge of the forest is further away (Fig. 1). At the forest edge (0m in distance), the probability of a nest box being occupied by a swift parrot is 0.48 (95% CI \[0.33, 0.64\]) and 0.31 (95% CI \[0.18, 0.44\]) in 2016 and 2019 respectively. When the forest edge is 900m away, the probability of a nest box being occupied by a swift parrot is 0.12 (95% CI \[0.06, 0.24\]) and 0.06 (95% CI \[0.03, 0.13\]) in 2016 and 2019. This may be due to the fact that other species such as the tree martin tend to use nest boxes further into the forest interior (Stojanovic et al., 2021), which increases competition for boxes farther away from the forest edge, thus decreasing the occupancy probability for swift parrots who are not as effective in competing against other species for habitat.
 
 ## Question 4: Affective and exploratory visualizations
 
