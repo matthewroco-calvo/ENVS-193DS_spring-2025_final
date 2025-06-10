@@ -293,7 +293,7 @@ ggplot(data = nest_boxes_clean, # starting with the nest_boxes_clean data frame
 
 ```
 
-Figure 1: As the distance from the forest edge increases, the probability of a nest box being occupied goes down. Data from Stojanovic, D., Owens, G., Young, C. M., Alves, F., & Heinsohn, R. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird. Restoration Figure 1: As the distance from the forest edge increases, the probability of a nest box being occupied goes down.
+Figure 1: As the distance from the forest edge increases, the probability of a nest box being occupied goes down. Data from Stojanovic, D., Owens, G., Young, C. M., Alves, F., & Heinsohn, R. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird. Restoration 
 
 Data from Stojanovic, D., Owens, G., Young, C. M., Alves, F., & Heinsohn, R. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird. Restoration Ecology, 29(3), e13319. https://doi.org/10.1111/rec.13319
 
